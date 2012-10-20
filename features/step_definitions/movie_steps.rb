@@ -1,11 +1,15 @@
 # Add a declarative step here for populating the DB with movies.
+# gah? does this refer to the stuff below?
 
 Given /the following movies exist/ do |movies_table|
   movies_table.hashes.each do |movie|
-    # each returned element will be a hash whose key is the table header.
+    # each returned element [movie, right?] will be a hash whose key is the table header.
     # you should arrange to add that movie to the database here.
+    
+    # Homework 3-1. yes, it really is a one-line problem (but also need bundle exec rake db:test:prepare)
+    Movie.create!(movie) # cf. MoviesController#create()
   end
-  flunk "Unimplemented"
+  # flunk "Unimplemented, fool"
 end
 
 # Make sure that one string (regexp) occurs before or after another one

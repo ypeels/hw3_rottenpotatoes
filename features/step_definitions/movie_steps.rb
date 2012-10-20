@@ -9,16 +9,27 @@ Given /the following movies exist/ do |movies_table|
     # Homework 3-1. yes, it really is a one-line problem (but also need bundle exec rake db:test:prepare)
     Movie.create!(movie) # cf. MoviesController#create()
   end
-  # flunk "Unimplemented, fool"
+  # flunk "Unimplemented"
 end
 
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
+  
+  # Homework 3-3
+  # http://rubydoc.info/github/jnicklas/capybara/master/Capybara/Session
   #  ensure that that e1 occurs before e2.
-  #  page.content  is the entire content of the page as a string.
-  flunk "Unimplemented"
+  #  page.content  is the entire content of the page as a string. [actually it's page.body]
+  #page.all('table#movies tbody tr')
+  
+  #flunk "#{page.content}"
+  #flunk "#{page.body}"
+  unless page.body.index(e1) < page.body.index(e2)
+    flunk "out of order"
+  end
+  
+  # flunk "Unimplemented"
 end
 
 # Make it easier to express checking or unchecking several boxes at once

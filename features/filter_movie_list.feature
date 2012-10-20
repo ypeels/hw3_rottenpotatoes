@@ -21,23 +21,43 @@ Background: movies have been added to database
 
   And  I am on the RottenPotatoes home page
   
+# Homework 3-2 - n.b. Given == When
 Scenario: restrict to movies with 'PG' or 'R' ratings
-  
-  # Homework 3-2 - n.b. Given == When
+    
   # enter step(s) to check the 'PG' and 'R' checkboxes
   Given I check the following ratings: PG, R  
   
   # enter step(s) to uncheck all other checkboxes
+    And I uncheck the following ratings: G, PG-13, NC-17
+  
   # enter step to "submit" the search form on the homepage
+  When I press "Refresh"
   
-  
+  # no better idea than to brute force...isn't that why we have a concrete table for testing?
   # enter step(s) to ensure that PG and R movies are visible
+  Then I should see "The Terminator"
+    And I should see "When Harry Met Sally"
+	And I should see "Amelie"
+	And I should see "The Incredibles"
+	And I should see "Raiders of the Lost Ark"
   
-  # then
   # enter step(s) to ensure that other movies are not visible
+    And I should not see "Aladdin"
+	And I should not see "The Help"
+	And I should not see "Chocolat"
+	And I should not see "2001: A Space Odyssey"
+	And I should not see "Chicken Run"
 
-Scenario: no ratings selected
-  # see assignment
-
+# Homework 3-2
 Scenario: all ratings selected
   # see assignment
+  Given I check the following ratings: G, PG, PG-13, R, NC-17
+  When I press "Refresh"
+  Then I should see all of the movies
+  
+# Homework 3-2: DUH, the site re-checks all ratings if you try to specify "no ratings"
+Scenario: no ratings selected
+  # see assignment
+  Given I uncheck the following ratings: G, PG, PG-13, R, NC-17
+  When I press "Refresh"
+  Then I should see all of the movies

@@ -38,5 +38,18 @@ When /I (un)?check the following ratings: (.*)/ do |un, rating_list|
   
 end
 
+# Homework 3-2 "all ratings selected"
+Then /I should see all of the movies/ do
 
- 
+  # http://stackoverflow.com/questions/2986250/how-to-assert-on-number-of-html-table-rows-in-ruby-using-capybara-cucumber
+  #page.all('table#movies tr').count.should == Movie.all.length
+  if page.all('table#movies tbody tr').count != Movie.all.length
+    flunk "movie count #{page.all('table#movies tr').count} - expected #{Movie.all.length}"
+    
+    # could not figure out how to get their "should" syntax to work
+  end
+
+end
+
+
+
